@@ -54,14 +54,15 @@ switch ($modx->event->name) {
 			return;	
 		}
 		
+		$new = $modx->db->getValue('Select count(*) from ' . $modx->getFullTableName('site_visits') . '
+			WHERE `did`="'.$did.'" and `date`="'.$date.'" and `ip`="'.$ip.'" ');
 		
-		$new = $modx->db->insert(['did'=>$id,'date'=>$date,'ip'=>$ip], $modx->getFullTableName('site_visits'));
 		if (!$new) {
 			$views = $modx->db->getValue('Select `views` from ' . $table . ' where did=' . $id . ' and `date`="' . $date . '"');
 			$views = $views + 1;
 			$modx->db->query('update ' . $table . ' set `views`="' . $views . '" where did=' . $id . ' and `date`="' . $date . '"');
 			return;
-		}
+		} else $modx->db->insert(['did'=>$id,'date'=>$date,'ip'=>$ip], $modx->getFullTableName('site_visits'));		
 		
 		$res = $modx->db->query('Select `id`,`visits`,`views` from ' . $table . ' where did='.$id.' and `date`="'.$date.'"');
 		$row = $modx->db->getRow($res);
