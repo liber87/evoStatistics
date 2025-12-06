@@ -158,11 +158,11 @@
 								if ($site_start != $error_page) $exception = ' and `did`!="'.$error_page.'" ';
 								
 								
-								$res = $modx->db->query('Select `did`,`date`,`visits`,`views`,`bots`,`pagetitle` from `modx_site_counter` as `counter`
-								left  join `modx_site_content` as `c` ON `c`.id = `counter`.`did`
+								$res = $modx->db->query('Select `did`,`date`,`visits`,`views`,`bots`,`pagetitle` from ' . $modx->getFullTableName('site_counter') . ' as `counter`
+								left  join ' . $modx->getFullTableName('site_content') . ' as `c` ON `c`.id = `counter`.`did`
 								where `date`="'.$data.'" ' . $exception . ' and `visits`>0 ORDER BY `visits` DESC');
 								
-								$count = $modx->db->getValue('Select sum(`visits`) from `modx_site_counter`
+								$count = $modx->db->getValue('Select sum(`visits`) from ' . $modx->getFullTableName('site_counter') . '
 								where `date`="'.$data.'" ' . $exception . ' and `visits`> 0');
 																																
 								$n=1;
