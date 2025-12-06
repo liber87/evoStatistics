@@ -39,7 +39,7 @@ switch ($modx->event->name) {
 		$id = $modx->documentIdentifier;	
 		if (!$id) return;
 		$date = date('d-m-Y');		
-		$ip = get_ip();
+		$ip = $modx->db->escape(get_ip());
 		$table = $modx->getFullTableName('site_counter');
 		
 		if (bot_detected()) {
@@ -118,4 +118,5 @@ switch ($modx->event->name) {
 	break;
 	}
 }
+
 
