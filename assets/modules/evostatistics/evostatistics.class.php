@@ -111,28 +111,19 @@
 				);
 				
 				$row = $this->modx->db->getRow($res);
-				$bots = is_null($bots) : 0 ? $row["bots"];				
+				$bot = is_null($row['bots']) ? 0 : $row["bots"];
 				$data["bots"][] = $bot;
 				
-				if (!$row["visits"]) {
-					$visit = 0;
-					} else {
-					$visit = $row["visits"];
-				}
-								
+				$visit = is_null($row['visits']) ? 0 : $row["visits"];
+				$data["visits"][] = $visit;
+												
 				if ($view_bots == 3) {
 					$visit = $visit + $bot;
 				}
 								
-				$data["visits"][] = $visit;
-				
-				if (!$row["views"] or $row["views"] == "null") {
-					$view = 0;
-					} else {
-					$view = $row["views"];
-				}
-				
-				$data["views"][] = $view;
+				$views = is_null($row['views']) ? 0 : $row["views"];
+				$data["views"][] = $views;
+							
 			}
 			
 			$md = $this->modx->db->getValue(
@@ -259,5 +250,4 @@
 			return $dg;
 		}
 	}
-
 
