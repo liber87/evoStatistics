@@ -70,19 +70,14 @@
             "skip",
 			];
 			foreach ($vars as $key) {
-				$data[$key] =
-                $input[$key][0]["value"] != ""
-				? $input[$key][0]["value"]
-				: $input[$key][0]["default"];
+				$data[$key] = $input[$key][0]["value"] != "" ? $input[$key][0]["value"] : $input[$key][0]["default"];
 			}
 			return $data;
 		}
 		
 		function getData(int $period = 7, ?string $begin = null, int $did = 0) : array
 		{
-			if (!$begin) {
-				$begin = date("d-m-Y");
-			}
+			$begin = is_null($begin) ? date("d-m-Y") : $begin;
 			
 			$data = [];
 			for ($i = $period; $i >= 0; $i--) {
@@ -260,3 +255,4 @@
 			return $dg;
 		}
 	}
+
