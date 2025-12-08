@@ -63,16 +63,25 @@
             "viewsColor",
             "botsTitle",
             "botsColor",
-            "period",
-            "bots_check",
+            "period",            
             "view_bots",
             "rows",
             "skip",
 			];
 			foreach ($vars as $key) {
-				$data[$key] = $input[$key][0]["value"] != "" ? $input[$key][0]["value"] : $input[$key][0]["default"];
+				$data[$key] =
+                $input[$key][0]["value"] != ""
+				? $input[$key][0]["value"]
+				: $input[$key][0]["default"];
 			}
 			return $data;
+		}
+		
+		function getOnceVar(string $var) : string
+		{
+			$data = $this->getVars();			
+			if (isset($data[$var])) return $data[$var];
+			else return 'undefined';
 		}
 		
 		function getData(int $period = 7, ?string $begin = null, int $did = 0) : array
@@ -115,11 +124,11 @@
 					} else {
 					$visit = $row["visits"];
 				}
-				if ($bots_check == 3) {
+								
+				if ($view_bots == 3) {
 					$visit = $visit + $bot;
 				}
-				
-				
+								
 				$data["visits"][] = $visit;
 				
 				if (!$row["views"] or $row["views"] == "null") {
