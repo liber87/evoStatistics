@@ -117,11 +117,11 @@
 				$visit = is_null($row['visits']) ? 0 : $row["visits"];
 				$data["visits"][] = $visit;
 												
-				if ($view_bots == 3) {
-					$visit = $visit + $bot;
-				}
-								
 				$views = is_null($row['views']) ? 0 : $row["views"];
+				$view_bots = $this->getOnceVar('view_bots');				
+				if ($view_bots == 3) {
+					$views = $views + $bot;
+				}
 				$data["views"][] = $views;
 							
 			}
