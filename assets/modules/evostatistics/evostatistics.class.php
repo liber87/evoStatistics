@@ -14,7 +14,7 @@
 			$this->post = $_POST;
 		}
 		
-		function getProps()
+		function getProps() : array
 		{
 			$properties = $this->modx->db->getValue(
             "Select `properties` from " .
@@ -51,7 +51,7 @@
 			exit();
 		}
 		
-		function getVars()
+		function getVars() : array
 		{
 			$input = $this->getProps();
 			$data = [];
@@ -78,11 +78,12 @@
 			return $data;
 		}
 		
-		function getData($period = 7, $begin = "", $did = 0)
+		function getData(int $period = 7, ?string $begin = null, int $did = 0) : array
 		{
 			if (!$begin) {
 				$begin = date("d-m-Y");
 			}
+			
 			$data = [];
 			for ($i = $period; $i >= 0; $i--) {
 				$day = date("d-m-Y", strtotime($begin . " -" . $i . " days"));
@@ -107,7 +108,7 @@
 				
 				$row = $this->modx->db->getRow($res);
 				
-				if (!$row["bots"] or $row["bots"] == "null") {
+				if (is_null($row['bots']) or ($row['bots'] === null)) {
 					$bot = 0;
 					} else {
 					$bot = $row["bots"];
@@ -122,6 +123,8 @@
 				if ($bots_check == 3) {
 					$visit = $visit + $bot;
 				}
+				
+				
 				$data["visits"][] = $visit;
 				
 				if (!$row["views"] or $row["views"] == "null") {
@@ -145,7 +148,8 @@
 			return $data;
 		}
 		
-		function drawGraph($data)
+		
+		function drawGraph(array $data) : string
 		{
 			extract($data);
 			$dg =
@@ -256,4 +260,3 @@
 			return $dg;
 		}
 	}
-
