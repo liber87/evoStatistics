@@ -129,9 +129,7 @@
 					} else {
 					$view = $row["views"];
 				}
-				if ($bots_check == 3) {
-					$view = $view + $bot;
-				}
+				
 				$data["views"][] = $view;
 			}
 			
@@ -258,3 +256,4 @@
 			return $dg;
 		}
 	}
+
