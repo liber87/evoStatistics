@@ -111,12 +111,7 @@
 				);
 				
 				$row = $this->modx->db->getRow($res);
-				
-				if (is_null($row['bots']) or ($row['bots'] === null)) {
-					$bot = 0;
-					} else {
-					$bot = $row["bots"];
-				}
+				$bots = is_null($bots) : 0 ? $row["bots"];				
 				$data["bots"][] = $bot;
 				
 				if (!$row["visits"]) {
@@ -264,4 +259,5 @@
 			return $dg;
 		}
 	}
+
 
