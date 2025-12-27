@@ -4,6 +4,12 @@
 	$es = new evostatistics($modx);		
 	if (isset($_POST['send_settings'])) $es->setProps($_POST);
 	$vars = $es->getVars();	
+	$m = $modx->getVersionData();
+	if (substr($m['version'], 0, 1) == 3){
+		$csrf = csrf_field()->toHtml();		
+	} else {
+		$csrf = '';		
+	}
 		
 ?>
 <html>
@@ -217,6 +223,7 @@
 					<div id="displayparams">
 						<form action="" method="post" id="settingsForm">
 							<input type="hidden" name="send_settings" value="1">
+							<?php echo $csrf;?>
 							<table width="100%" cellpadding="0" cellspacing="0" border="0" class="displayparams grid">
 								<thead>
 									<tr>
